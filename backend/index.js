@@ -11,7 +11,7 @@ const port = 3000
 app.use(express.json())
 
 //available routes
-app.use("/api/user", require("./routes/auth"))
+app.use("/api/auth", require("./routes/auth"))
 app.use("/api/notes", require("./routes/notes"))
 
 app.listen(port, () => {
