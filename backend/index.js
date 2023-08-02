@@ -5,7 +5,7 @@ const express = require('express')
 connectToMongo();
 
 const app = express()
-const port = 3000
+const port = 5000
 
 //middle-vare to use (req body in api's) or any json format in api's
 app.use(express.json())
