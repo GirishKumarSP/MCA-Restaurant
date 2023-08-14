@@ -2,27 +2,39 @@ import React, { useState } from 'react';
 import hamburger from "../Images/hamburger.png";
 import cross from "../Images/cross.png";
 import backgroundImage from '../Images/background.jpg';
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    let location = useLocation();
+    const navigate = useNavigate();
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    const handleLogout = ()=>{
+        localStorage.removeItem('token');
+        navigate("/login")
+
+    }
+
     return (
         <nav className={`relative z-10 bg-cover bg-top`}
-        style={{ backgroundImage: `url(${backgroundImage})` }}
+            style={{ backgroundImage: `url(${backgroundImage})` }}
         >
             <div className={`flex items-center justify-between bg-gray-900 bg-opacity-50 p-4`}>
                 <div className="px-2 mx-3 font-bold text-white border-4 border-white border-double">DineOptima</div>
                 <div className="hidden space-x-4 md:flex">
-                    <Link to="/" className="font-bold text-gray-400 hover:text-white">Home</Link>
-                    <Link to="/about" className="font-bold text-gray-400 hover:text-white">About</Link>
-                    <Link to="/contact" className="font-bold text-gray-400 hover:text-white">Contact</Link>
-                    <a href="/" className="font-bold text-blue-500 underline hover:text-white ">Login</a>
-                    <a href="/" className="font-bold text-blue-500 underline hover:text-white">Signin</a>
+                    <Link to="/" className={`font-bold  hover:text-white ${location.pathname === "/" ? "text-white" : "text-gray-400"}`}>Home</Link>
+                    <Link to="/about" className={`font-bold hover:text-white ${location.pathname === "/about" ? "text-white" : "text-gray-400"}`}>About</Link>
+                    <Link to="/contact" className={`font-bold hover:text-white ${location.pathname === "/contact" ? "text-white" : "text-gray-400"} `}>Contact</Link>
+                    <Link to="/notes" className={`font-bold hover:text-white ${location.pathname === "/notes" ? "text-white" : "text-gray-400"} `}>Notes</Link>
+                    <Link to="/reservation" className={`font-bold hover:text-white ${location.pathname === "/reservation" ? "text-white" : "text-gray-400"} `}>Reservation</Link>
+                    {!localStorage.getItem("token")?<div>
+                    <Link to="/login" className="font-bold text-blue-500 underline hover:text-white mr-4">Login</Link>
+                    <Link to="/signin" className="font-bold text-blue-500 underline hover:text-white">Signin</Link>
+                    </div>:<button onClick={handleLogout} className="font-bold text-blue-500 underline hover:text-white">LogOut</button>}
                 </div>
                 <div className="md:hidden">
                     <button onClick={toggleMobileMenu}>
