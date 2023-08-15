@@ -1,6 +1,15 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
+
 
 function Contact() {
+    const navigate = useNavigate();
+
+    const onclick = (e)=>{
+        e.preventDefault()
+        navigate('/confirmation', { state: { message: "You'll Hear from Us Shortly" } });
+    }
+
     return (
         <div className='bg-gray-500'>
             <h1 className="flex justify-center pt-8 text-4xl font-bold">Contact Us</h1>
@@ -24,7 +33,7 @@ function Contact() {
                                 <label htmlFor="message" className="block mb-1 font-semibold">Message</label>
                                 <textarea id="message" className="resize-none w-full min-h-[100px] rows-4 border bg-gray-400 rounded p-2"></textarea>
                             </div>
-                            <button type="submit" className="px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">
+                            <button onClick={onclick} type="submit" className="px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600">
                                 Submit
                             </button>
                         </form>

@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import NotesContext from '../context/notes/NotesContext';
 
 function DishCard(props) {
-    const { dishesData, dishCount, setDishCount } = props;
 
-    const AddDishCount = (dishNameToCount) => {
+    const context = useContext(NotesContext);
+    const {  dishCount, setDishCount,dishesData } = context;
+
+
+    const AddDishCount = (dishNameToCount,dishPriceToCount) => {
         const updatedDishCount = [...dishCount];
         const existingIndex = updatedDishCount.findIndex((dish) => dish.dishname === dishNameToCount);
 
         if (existingIndex !== -1) {
             updatedDishCount[existingIndex].dishcount += 1;
         } else {
-            updatedDishCount.push({ dishname: dishNameToCount, dishcount: 1 });
+            updatedDishCount.push({ dishname: dishNameToCount,dishprice:dishPriceToCount, dishcount: 1 });
         }
 
         setDishCount(updatedDishCount);
@@ -44,7 +48,7 @@ function DishCard(props) {
                             </div>
                         </div>
                         <div className='flex justify-center items-center'>
-                            <button className='bg-green-300 rounded-2xl px-8 py-3 m-2'  onClick={()=>{AddDishCount(dish.dishName)}}>ADD</button>
+                            <button className='bg-green-300 rounded-2xl px-8 py-3 m-2'  onClick={()=>{AddDishCount(dish.dishName,dish.price)}}>ADD</button>
                             <div className='showCount bg-green-300 px-5 py-3 rounded-2xl'>
                                 {dishCount.map((dishCountItem, countIndex) => (
                                     dishCountItem.dishname === dish.dishName && (

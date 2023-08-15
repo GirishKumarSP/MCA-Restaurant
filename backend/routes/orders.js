@@ -19,12 +19,12 @@ router.get("/fetchallorders", fetchuser,
 
 // Route 2) Add a new order using: POST "/api/orders/addorder". login require
 router.post("/addorder", fetchuser, [
-    body('orderList', 'enter a valid order').notEmpty()
+    body('foodList', 'enter a valid order').notEmpty()
 ],
     async (req, res) => {
 
         try {
-            const { orderList } = req.body;
+            const { foodList,orderDetails } = req.body;
 
             //if there are errors return bad request and error message
             const errors = validationResult(req);
@@ -34,7 +34,7 @@ router.post("/addorder", fetchuser, [
 
             // create the Note object with data from request body and user id of logged in user
             const order = new Orders({
-                orderList, user: req.user.id
+                foodList,orderDetails, user: req.user.id
             })
 
             const saveOrder = await order.save()
@@ -103,6 +103,8 @@ router.delete("/deleteoder/:id", fetchuser,
 
     }
 )
+
+
 
 
 module.exports = router

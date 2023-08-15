@@ -19,6 +19,8 @@ app.use("/api/auth", require("./routes/auth"))
 app.use("/api/notes", require("./routes/notes"))
 app.use("/api/adminAuth", require("./routes/adminAuth"))
 app.use("/api/orders", require("./routes/orders"))
+app.use("/api/adminAccess", require("./routes/adminAccess"))
+app.use("/api/feedback", require("./routes/feedback"))
 
 app.listen(port, () => {
   console.log(`Resturant backend app listening on port http://localhost:${port}`)

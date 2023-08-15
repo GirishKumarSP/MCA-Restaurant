@@ -6,7 +6,11 @@ const OrdersSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User', //reference to the User model in our database
     },
-    orderList: {
+    foodList: {
+        type: Schema.Types.Mixed, // Allows storing complex data types
+        required: true,
+    },
+    orderDetails: {
         type: Schema.Types.Mixed, // Allows storing complex data types
         required: true,
     },

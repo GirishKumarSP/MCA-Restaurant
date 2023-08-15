@@ -1,57 +1,60 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import NotesContext from '../context/notes/NotesContext';
+import { Link, useNavigate } from "react-router-dom";
 
 function Reservation(props) {
-    const [date, setDate] = useState('');
-    const [time, setTime] = useState('');
-    const [seating, setSeating] = useState('');
-    const [occasion, setOccasion] = useState("birthday")
+    const context = useContext(NotesContext);
+    const { formData, setFormData, availableTimes } = context;
+    const navigate = useNavigate();
+
     const [formValid, setFormValid] = useState(false);
 
-    const { availableTimes, dispatch } = props;
-
-    const handleDateChange = (event) => {
-        const selectedDate = `"${event.target.value}"`;
-        const finalDate = new Date(selectedDate);
-        setDate(event.target.value);
-        dispatch({ type: 'UPDATE_TIMES', date: finalDate });
-        validateForm();
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        console.log(name, value)
+        const updatedFormData = { ...formData, [name]: value };
+        console.log(updatedFormData)
+        setFormData(updatedFormData);
+        validateForm(updatedFormData);
     };
-
-    const handleTimeChange = (event) => {
-        setTime(event.target.value);
-        validateForm();
-    }
-
-    const handleSeatingChange = (event) => {
-        setSeating(event.target.value);
-        validateForm();
-    }
-
-    const handleOccasionChange = (event) => {
-        setOccasion(event.target.value);
-        validateForm();
-    }
 
     const handleSumbit = (e) => {
         e.preventDefault();
         props.submitForm(e);
         // Process the form data or make an API request
-        console.log('Form submitted:', { date, time, seating, occasion });
+        console.log('Form submitted:', formData);
         // Reset the form fields
-        setDate('');
-        setTime('');
-        setSeating('');
-        setOccasion('');
+        setFormData({
+            date: '',
+            time: '',
+            seating: '',
+            occasion: '',
+        });
         setFormValid(false);
     };
 
-    const validateForm = () => {
+    const validateForm = (data) => {
+        const { date, time, seating, occasion } = data;
+        console.log(formValid)
         if (date && time && seating && occasion) {
             setFormValid(true);
         } else {
             setFormValid(false);
         }
     };
+
+    // Get the current date in YYYY-MM-DD format
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            navigate("/reservation")
+        } else {
+            navigate("/login")
+        }
+
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <div className=' flex h-screen justify-center items-center bg-gray-500'>
@@ -64,10 +67,10 @@ function Reservation(props) {
                     <form className="booking-form w-full p-6 " onSubmit={handleSumbit}>
 
                         <label className='block my-2 font-bold' htmlFor="res-date">Choose date</label>
-                        <input className='w-full p-2 border-gray-400 border-2 rounded-lg bg-gray-400' type="date" id="res-date" value={date} onChange={handleDateChange} required />
+                        <input className='w-full p-2 border-gray-400 border-2 rounded-lg bg-gray-400' type="date" id="res-date" value={formData.date} name='date' onChange={handleChange} min={currentDate} />
 
                         <label className='block my-2 font-bold' htmlFor="res-time">Choose time</label>
-                        <select className='w-full p-2 border-gray-400 border-2 rounded-lg bg-gray-400' type="time" id="res-time" value={time} onChange={handleTimeChange} required>
+                        <select className='w-full p-2 border-gray-400 border-2 rounded-lg bg-gray-400' type="time" id="res-time" value={formData.time} name='time' onChange={handleChange} required>
                             <option value="">Select a time</option>
                             {availableTimes && availableTimes.map((timeOption) => (
                                 <option key={timeOption}>{timeOption}</option>
@@ -75,16 +78,21 @@ function Reservation(props) {
                         </select>
 
                         <label className='block my-2 font-bold' htmlFor="guests">Number of guests</label>
-                        <input className='w-full p-2 border-gray-400 border-2 rounded-lg bg-gray-400' type="number" placeholder="0" min="1" max="10" id="guests" value={seating} onChange={handleSeatingChange} required />
+                        <input className='w-full p-2 border-gray-400 border-2 rounded-lg bg-gray-400' type="number" placeholder="0" min="1" max="10" id="guests" name='seating' value={formData.seating} onChange={handleChange} required />
 
                         <label className='block my-2 font-bold' htmlFor="occasion">Occasion</label>
-                        <select className='w-full p-2 border-gray-400 border-2 rounded-lg bg-gray-400' type="select" id="occasion" value={occasion} onChange={handleOccasionChange} required>
+                        <select className='w-full p-2 border-gray-400 border-2 rounded-lg bg-gray-400' type="select" id="occasion" name='occasion' value={formData.occasion} onChange={handleChange} required>
                             <option value="">Select an occasion</option>
                             <option>Birthday</option>
                             <option>Anniversary</option>
+                            <option>Others</option>
                         </select>
 
-                        <input className='block my-4 p-3 bg-blue-500 rounded-lg' type="submit" value="Make Your reservation" disabled={!formValid} />
+                        {formValid ? (
+                            <Link to='/dishlist' className='block my-4 p-3 text-white bg-blue-500 rounded-lg text-center'>Make Your reservation</Link>
+                        ) : (
+                            <span className='block my-4 p-3 text-white bg-gray-300 rounded-lg text-center cursor-pointer'>Make Your reservation span</span>
+                        )}
                     </form>
                 </div>
             </div>

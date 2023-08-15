@@ -4,10 +4,10 @@ const Admin = require("../Models/Admin")
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-const fetchuser = require("../middleware/fetchuser")
+const fetchadmin = require("../middleware/fetchadmin")
 
 //this is the secret string we use to sign the token
-const JWR_SECRET = "IamAgood$Boy"
+const JWR_SECRET = "IamAgood$Boy2"
 
 // Route 1) create a admin using: post "/api/adminAuth/createuser". No login require
 router.post("/createuser", [
@@ -109,7 +109,7 @@ router.post("/login", [
 
 // Route 3) Get loggedin user details using: post "/api/adminAuth/getuser". login require
 
-router.post("/getuser", fetchuser, async (req, res) => {
+router.post("/getuser", fetchadmin, async (req, res) => {
     try {
         const adminid = req.user.id;
         const admin = await Admin.findById(adminid).select("-password");
