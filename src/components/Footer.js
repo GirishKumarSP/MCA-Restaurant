@@ -13,16 +13,16 @@ const Footer = () => {
         <div>
           {/* Social Media Icons */}
           <div className="flex space-x-4">
-            <a href="/" target="_blank" className="text-gray-300 hover:text-white">
+            <a href="https://www.linkedin.com/in/girish-kumar-s-p-a6702b229" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-white">
             <i className="fa-brands fa-linkedin"></i>
             </a>
-            <a href="/" target="_blank" className="text-gray-300 hover:text-white">
+            <a href="https://github.com/GirishKumarSP" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-white">
               <i className="fa-brands fa-github"></i>
             </a>
-            <a href="/" target="_blank" className="text-gray-300 hover:text-white">
+            <a href="https://twitter.com/GirishKumarSP" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-white">
               <i className="fab fa-twitter"></i>
             </a>
-            <a href="/" target="_blank" className="text-gray-300 hover:text-white">
+            <a href="https://www.instagram.com/girish_kumar70/" target="_blank" rel="noreferrer" className="text-gray-300 hover:text-white">
               <i className="fab fa-instagram"></i>
             </a>
           </div>

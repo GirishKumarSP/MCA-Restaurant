@@ -17,7 +17,7 @@ function Banner() {
             >
                 <div className='flex items-center justify-center md:flex-grow'>
                     <div className="p-6 bg-gray-600 bg-opacity-50 rounded-lg md:text-center ">
-                        <h1 className="mb-2 text-4xl font-bold">Little Lemon</h1>
+                        <h1 className="mb-2 text-4xl font-bold">DineOptima</h1>
                         <p className="mb-2 text-lg">We are a family-owned restaurant Focused on traditional recipes with a modern twist.</p>
                         <button onClick={onclickSubmit}  className='p-3 font-bold text-white bg-black rounded-lg opacity-70 hover:text-gray-400'>Reserve a Table</button>
                     </div>

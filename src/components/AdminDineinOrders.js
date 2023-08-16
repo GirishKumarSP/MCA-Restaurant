@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from "react-router-dom";
 import DineOptimaContext from '../context/Dineoptima/DineOptimaContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,12 +13,7 @@ function AdminDineinOrders() {
     const [filteredOrders, setFilteredOrders] = useState([]);
 
     // Calculate the total of all orders
-    let total = 0;
-    AdminDineinOrdersFetch.map((dineInDetails) => {
-        const orderTotal = parseFloat(dineInDetails.orderDetails.total);
-        total += orderTotal;
-        return null
-    });
+    const [total, setTotal] = useState(0)
 
     useEffect(() => {
         if (localStorage.getItem("Admintoken")) {
@@ -38,8 +32,24 @@ function AdminDineinOrders() {
                 (order) => order.orderDetails.date === selectedDate
             );
             setFilteredOrders(filtered);
+
+            // Calculate the total of filtered orders
+            let filteredTotal = 0;
+            filtered.forEach((dineInDetails) => {
+                const orderTotal = parseFloat(dineInDetails.orderDetails.total);
+                filteredTotal += orderTotal;
+            });
+            setTotal(filteredTotal);
         } else {
             setFilteredOrders(AdminDineinOrdersFetch);
+
+            // Calculate the total of all orders
+            let total = 0;
+            AdminDineinOrdersFetch.forEach((dineInDetails) => {
+                const orderTotal = parseFloat(dineInDetails.orderDetails.total);
+                total += orderTotal;
+            });
+            setTotal(total);
         }
     }, [selectedDate, AdminDineinOrdersFetch]);
 
@@ -95,10 +105,6 @@ function AdminDineinOrders() {
                         <div className="w-1/6 flex justify-center font-bold">${total.toFixed(2)}</div>
                     </div>
 
-                </div>
-                <div className='flex justify-between w-10/12 mb-5'>
-                    <Link to="/dishlist" className="font-bold text-white bg-blue-500 p-3 rounded-2xl">Back</Link>
-                    <Link to="/reservation" className="font-bold text-white bg-blue-500 p-3 rounded-2xl" >Place Order</Link>
                 </div>
             </div>
         </div>

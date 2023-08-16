@@ -21,7 +21,7 @@ function CheckOut() {
             occasion: '',
             total:'',
         }); // Provide the new value you want to set (an empty object in this case)
-        navigate('/confirmation', { state: { message: "Your Order Has Been Placed" } });
+        navigate('/confirmation', { state: { message: "Your reservation has been successfully completed." } });
     }
 
     

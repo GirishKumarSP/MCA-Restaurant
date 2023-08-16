@@ -13,15 +13,17 @@ function Alert(props) {
   }
   
   const alertClasses = () => {
-    return `p-4 rounded absolute top-0 left-0 right-0
+    return `p-4 m-2 w-96 flex justify-center items-center rounded absolute top-0 left-0 right-0
   ${props.alert.type === 'green' ? 'bg-green-100' : 'bg-red-100'}`;
   }
 
   return (
-    <div className="relative">
+    <div className="relative inline">
       {props.alert &&
         <div className={alertClasses()}>
+          <div>
           <strong>{capitalize(props.alert.type)}</strong> : {props.alert.message}
+          </div>
         </div>
       }
     </div>
