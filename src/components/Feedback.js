@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import NotesContext from '../context/notes/NotesContext';
+import DineOptimaContext from '../context/Dineoptima/DineOptimaContext';
 
 
 function Feedback() {
     const navigate = useNavigate();
-    const context = useContext(NotesContext);
+    const context = useContext(DineOptimaContext);
     const { addfeedback } = context;
     // const [rating, setRating] = useState(0);
 

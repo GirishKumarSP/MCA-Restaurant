@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import NotesContext from '../context/notes/NotesContext';
+import DineOptimaContext from '../context/Dineoptima/DineOptimaContext';
 
 function DishCard(props) {
 
-    const context = useContext(NotesContext);
+    const context = useContext(DineOptimaContext);
     const {  dishCount, setDishCount,dishesData } = context;
 
 

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import NotesContext from '../context/notes/NotesContext';
+import DineOptimaContext from '../context/Dineoptima/DineOptimaContext';
 import { Link, useNavigate } from "react-router-dom";
 
 function Reservation(props) {
-    const context = useContext(NotesContext);
+    const context = useContext(DineOptimaContext);
     const { formData, setFormData, availableTimes } = context;
     const navigate = useNavigate();
 
@@ -11,9 +11,7 @@ function Reservation(props) {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        console.log(name, value)
         const updatedFormData = { ...formData, [name]: value };
-        console.log(updatedFormData)
         setFormData(updatedFormData);
         validateForm(updatedFormData);
     };
@@ -22,7 +20,6 @@ function Reservation(props) {
         e.preventDefault();
         props.submitForm(e);
         // Process the form data or make an API request
-        console.log('Form submitted:', formData);
         // Reset the form fields
         setFormData({
             date: '',
@@ -35,7 +32,6 @@ function Reservation(props) {
 
     const validateForm = (data) => {
         const { date, time, seating, occasion } = data;
-        console.log(formValid)
         if (date && time && seating && occasion) {
             setFormValid(true);
         } else {

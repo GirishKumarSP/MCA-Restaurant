@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
-import NotesContext from '../context/notes/NotesContext';
+import DineOptimaContext from '../context/Dineoptima/DineOptimaContext';
 import { useNavigate } from 'react-router-dom';
 
 
 function AdminDineinOrders() {
-    const context = useContext(NotesContext);
+    const context = useContext(DineOptimaContext);
     const { getallordersofusers, AdminDineinOrdersFetch } = context
     const navigate = useNavigate();
 

@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NoteState from './context/notes/Notestate';
+import DineOptimaState from './context/Dineoptima/DineOptimaState';
 import Footer from './components/Footer';
 import Alert from './components/Alert';
 
@@ -17,8 +17,6 @@ import DishList from './components/DishList';
 import CheckOut from './components/CheckOut';
 // import Confirmatoin from './components/Confirmatoin';
 
-//notes
-import Notes from './components/Notes';
 
 //admin files
 import AdminNavbar from './components/AdminNavbar';
@@ -30,13 +28,13 @@ import Feedback from './components/Feedback';
 import AdminFeedback from './components/AdminFeedback';
 import AdminHome from './components/AdminHome';
 import DishIngredients from './components/DishIngredients';
+import UserOrders from './components/UserOrders';
 
 function App() {
 
   const [alert, setAlert] = useState(null);
 
   const showAlert = (message, type) => {
-    console.log("this is app.js", message, type)
     setAlert({
       message: message,
       type: type
@@ -79,15 +77,11 @@ function App() {
 
   return (
     <div className="App ">
-      <NoteState>
+      <DineOptimaState>
         <BrowserRouter>
           {isUserNav ? <Navbar toggleNavbar={toggleNavbar}/> : <AdminNavbar  toggleNavbar={toggleNavbar} />}
           <Alert alert={alert} />
           <Routes>
-
-            {/* user links */}
-            <Route path="/notes" element={<Notes showAlert={showAlert} />} />
-
 
             {/* user links */}
             <Route path="/" element={<UserHome />} />
@@ -100,7 +94,7 @@ function App() {
             <Route path="/checkout" element={<CheckOut />} />
             <Route path="/confirmation" element={<Confirmatoin />} />
             <Route path="/feedback" element={<Feedback />} />
-            {/* <Route path="/" element={<Confirmatoin/>} /> */}
+            <Route path="/userorders" element={<UserOrders showAlert={showAlert} />} />
 
             {/* Admin links */}
             <Route path="/adminhome" element={<AdminHome />} />
@@ -113,7 +107,7 @@ function App() {
           </Routes>
           <Footer />
         </BrowserRouter>
-      </NoteState>
+      </DineOptimaState>
     </div>
   );
 }

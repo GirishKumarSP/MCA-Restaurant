@@ -32,7 +32,7 @@ function Navbar(props) {
                 <div className="hidden space-x-4 md:flex">
                     <Link to="/" className={`font-bold  hover:text-white ${location.pathname === "/" ? "text-white" : "text-gray-400"}`}>Home</Link>
                     <Link to="/reservation" className={`font-bold hover:text-white ${location.pathname === "/reservation" ? "text-white" : "text-gray-400"} `}>Reservation</Link>
-                    <Link to="/notes" className={`font-bold hover:text-white ${location.pathname === "/notes" ? "text-white" : "text-gray-400"} `}>Notes</Link>
+                    <Link to="/userorders" className={`font-bold hover:text-white ${location.pathname === "/userorders" ? "text-white" : "text-gray-400"} `}>Orders</Link>
                     <Link to="/feedback" className={`font-bold hover:text-white ${location.pathname === "/feedback" ? "text-white" : "text-gray-400"} `}>Feedback</Link>
                     <Link to="/contact" className={`font-bold hover:text-white ${location.pathname === "/contact" ? "text-white" : "text-gray-400"} `}>Contact</Link>
                     <Link to="/about" className={`font-bold hover:text-white ${location.pathname === "/about" ? "text-white" : "text-gray-400"}`}>About</Link>

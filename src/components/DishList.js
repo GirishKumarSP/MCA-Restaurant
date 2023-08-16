@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import DishCard from './DishCard';
 import FoodBasket from './FoodBasket';
-import NotesContext from '../context/notes/NotesContext';
+import DineOptimaContext from '../context/Dineoptima/DineOptimaContext';
 import { Link } from "react-router-dom";
 
 
 function DishList() {
-    const context = useContext(NotesContext);
+    const context = useContext(DineOptimaContext);
     const { dishCount, setuniqueDishes, uniqueDishes } = context;
     const [formValid, setFormValid] = useState(false);
     

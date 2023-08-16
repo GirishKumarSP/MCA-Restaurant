@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
-import NotesContext from '../context/notes/NotesContext';
+import DineOptimaContext from '../context/Dineoptima/DineOptimaContext';
 import { Link,useNavigate } from "react-router-dom";
 
 function CheckOut() {
 
-    const context = useContext(NotesContext);
+    const context = useContext(DineOptimaContext);
     let { dishCount, addorder, formData, setDishCount, setFormData } = context;
     let subtotal = 0;
 

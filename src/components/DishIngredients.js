@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import NotesContext from '../context/notes/NotesContext';
+import DineOptimaContext from '../context/Dineoptima/DineOptimaContext';
 import { useNavigate } from 'react-router-dom';
 
 const DishIngredients = () => {
-  const context = useContext(NotesContext);
+  const context = useContext(DineOptimaContext);
   const { dishesData, AdminDineinOrdersFetch, getallordersofusers } = context;
   const navigate = useNavigate();
 

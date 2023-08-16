@@ -50,12 +50,12 @@ router.post("/addorder", fetchuser, [
 // Route 3) update an exsisting note using: PUT "/api/orders/updateorder". login require
 router.put("/updateorder/:id", fetchuser,
     async (req, res) => {
-        const { orderList } = req.body;
+        const { orderDetails } = req.body;
 
         try {
             //create new note object
             const newOrder = {};
-            if (orderList) { newOrder.orderList = orderList }
+            if (orderDetails) { newOrder.orderDetails = orderDetails }
 
             //find the note to be updated and update it
             let order = await Orders.findById(req.params.id);

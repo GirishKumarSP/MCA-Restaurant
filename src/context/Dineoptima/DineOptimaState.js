@@ -1,7 +1,10 @@
 import { useState } from "react";
-import NotesContext from "./NotesContext";
+import DineOptimaContext from "./DineOptimaContext";
 
-const NoteState = (props) => {
+const DineOptimaState = (props) => {
+
+    //for Api call
+    const host = "http://localhost:5000"
 
     //user section
 
@@ -77,8 +80,8 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({ foodList, orderDetails }),
         });
-        const note = await response.json();
-        console.log(note)
+        await response.json();
+
     }
 
     //Add a feedback by customer
@@ -92,10 +95,71 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({ name, email, feedback, rating }),
         });
-        const note = await response.json();
-        console.log(note)
+        await response.json();
+
     }
 
+    //CRUD Operation of the Orders
+    const [myOrders, setMyOrders] = useState([])
+
+    //get orders
+    const getmyorders = async () => {
+        //Api call
+        const response = await fetch(`${host}/api/orders/fetchallorders`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem("token")
+            }
+        });
+        const json = await response.json();
+        setMyOrders(json)
+    }
+
+    //Delete a order
+    const deleteorder = async (id) => {
+        //Api call
+        const response = await fetch(`${host}/api/orders/deleteoder/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem("token")
+            }
+        });
+        //to delete in client
+        const newOrders = myOrders.filter((order) => { return order._id !== id })
+        setMyOrders(newOrders)
+
+        await response.json();
+
+    }
+
+    //Edit a order
+    const editorder = async (id, orderDetails) => {
+        //Api calls
+        const response = await fetch(`${host}/api/orders/updateorder/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem("token")
+            },
+            body: JSON.stringify({ orderDetails }),
+        });
+        await response.json();
+
+
+        //we can't change details in state directly in react so we create new one
+        let newOrders = JSON.parse(JSON.stringify(myOrders))
+        //logic to edit in client
+        for (let index = 0; index < newOrders.length; index++) {
+            const element = newOrders[index];
+            if (element._id === id) {
+                newOrders[index].orderDetails = orderDetails;
+                break;
+            }
+        }
+        setMyOrders(newOrders);
+    }
 
 
     //-------------------------------------------------------------------------------------
@@ -117,7 +181,6 @@ const NoteState = (props) => {
         });
         const json = await response.json();
         setAdminDineinOrdersFetch(json)
-        // console.log("Note State:", json);
     }
 
     // get all feedbacks of all users for admin only
@@ -132,112 +195,14 @@ const NoteState = (props) => {
         });
         const json = await response.json();
         setAdminFeedbackFetch(json)
-        // console.log("Note State:", json);
+
     }
-
-
-    //-------------------------------------------------------------------------------------
-    //notes section
-
-    //context related
-    const host = "http://localhost:5000"
-    const notesInitial = []
-
-    const [notes, setNotes] = useState(notesInitial)
-
-
-    //get notes
-    const getnotes = async () => {
-        //Todo: Api call
-        const response = await fetch(`${host}/api/notes/fetchallnotes`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": localStorage.getItem("token")
-            }
-        });
-        const json = await response.json();
-        setNotes(json)
-        // console.log("Note State:", json);
-    }
-
-
-    //Add a note
-    const addnote = async (title, description, tag) => {
-        //Todo: Api call
-        const response = await fetch(`${host}/api/notes/addnote`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": localStorage.getItem("token")
-            },
-            body: JSON.stringify({ title, description, tag }),
-        });
-        const note = await response.json();
-        // console.log(note)
-
-        //to update in client
-        setNotes(notes.concat(note))
-    }
-
-    //Delete a note
-    const deletenote = async (id) => {
-        //Api call
-        const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": localStorage.getItem("token")
-            }
-        });
-        //to delete in client
-        // console.log("Deleting note with the id" + id)
-        const newNotes = notes.filter((note) => { return note._id !== id })
-        setNotes(newNotes)
-
-        const json = response.json();
-        console.log(json)
-    }
-
-    //Edit a note
-    const editnote = async (id, title, description, tag) => {
-        //Api calls
-        const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": localStorage.getItem("token")
-            },
-            body: JSON.stringify({ title, description, tag }),
-        });
-        const json = response.json();
-        console.log(json)
-
-        //we can't change details in state directly in react so we create new one
-        let newNotes = JSON.parse(JSON.stringify(notes))
-        //logic to edit in client
-        for (let index = 0; index < newNotes.length; index++) {
-            const element = newNotes[index];
-            if (element._id === id) {
-                newNotes[index].title = title;
-                newNotes[index].description = description;
-                newNotes[index].tag = tag;
-                break;
-            }
-        }
-        setNotes(newNotes);
-    }
-
-
-
-
-
 
     return (
-        <NotesContext.Provider value={{ notes, addnote, deletenote, editnote, getnotes, dishCount, setDishCount, uniqueDishes, setuniqueDishes, dishesData, formData, setFormData, availableTimes, setAvailableTimes, addorder, getallordersofusers, AdminDineinOrdersFetch,addfeedback,getallfeedbacksofusers,AdminFeedbackFetch }}>
+        <DineOptimaContext.Provider value={{ dishCount, setDishCount, uniqueDishes, setuniqueDishes, dishesData, formData, setFormData, availableTimes, setAvailableTimes, addorder, getallordersofusers, AdminDineinOrdersFetch, addfeedback, getallfeedbacksofusers, AdminFeedbackFetch, getmyorders, myOrders, deleteorder, editorder }}>
             {props.children}
-        </NotesContext.Provider>
+        </DineOptimaContext.Provider>
     )
 }
 
-export default NoteState;
+export default DineOptimaState;
