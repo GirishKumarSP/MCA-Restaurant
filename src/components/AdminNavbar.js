@@ -20,7 +20,7 @@ function AdminNavbar(props) {
     }
 
     const navigateOnSwitch = () => {
-        navigate("/login")
+        navigate("/")
     }
 
     return (
