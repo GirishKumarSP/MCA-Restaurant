@@ -26,7 +26,7 @@ function AdminSignin(props) {
             navigate("/")
             props.showAlert("Account Created Successfully", "green")
         } else {
-            props.showAlert("Invalid Credentials", "red")
+            props.showAlert("User already Exisit", "red")
         }
     }
 

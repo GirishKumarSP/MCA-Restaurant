@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import DineOptimaContext from '../context/Dineoptima/DineOptimaContext';
 
@@ -7,11 +7,14 @@ function Feedback() {
     const navigate = useNavigate();
     const context = useContext(DineOptimaContext);
     const { addfeedback } = context;
-    // const [rating, setRating] = useState(0);
 
-    // const onRatingChange = (newRating) => { 
-    //     setRating(newRating);
-    // };
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+        } else {
+            navigate("/login")
+        }
+        // eslint-disable-next-line
+    }, [])
 
     const [feedbackData, setFeedbackData] = useState({
         myname: '',
@@ -44,11 +47,11 @@ function Feedback() {
 
     return (
         <div className='bg-gray-500'>
-            <h1 className="flex justify-center pt-8 text-4xl font-bold">Feedback Form</h1>
+            <h1 className="flex justify-center pt-8 text-4xl font-bold">Feedback</h1>
             <div className='items-center justify-center h-screen md:flex '>
                 <div className="flex justify-center mx-2 border-black md:items-center h-5/6 md:border-2 rounded-2xl md:px-10 md:mx-20 ">
                     <div className="flex-col flex-1 hidden left md:flex">
-                        <h1 className='mx-5 my-5 text-3xl font-bold'>Welcome to our Contact Form!</h1>
+                        <h1 className='mx-5 my-5 text-3xl font-bold'>Welcome to our Feedback Form!</h1>
                         <p className="bookingDescription">Embark on a remarkable journey of personalized service and remarkable experiences, as we redefine the art of booking and cater to your every desire.</p>
                     </div>
                     <div className="flex flex-col flex-1 right">
@@ -60,7 +63,7 @@ function Feedback() {
                                     id="name"
                                     name="myname"
                                     className="w-full p-2 bg-gray-400 border rounded"
-                                    value={feedbackData.name}
+                                    value={feedbackData.myname}
                                     onChange={onInputChange}
                                 />
                             </div>

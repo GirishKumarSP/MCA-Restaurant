@@ -99,6 +99,21 @@ const DineOptimaState = (props) => {
 
     }
 
+    //Add a feedback by customer
+    const addcontactus = async (name, email, message) => {
+        //Todo: Api call
+        const response = await fetch(`${host}/api/contactus/addcontactus`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem("token")
+            },
+            body: JSON.stringify({ name, email, message}),
+        });
+        const json = await response.json();
+        console.log(json)
+    }
+
     //CRUD Operation of the Orders
     const [myOrders, setMyOrders] = useState([])
 
@@ -168,6 +183,7 @@ const DineOptimaState = (props) => {
     //state to hold all orders for admin
     const [AdminDineinOrdersFetch, setAdminDineinOrdersFetch] = useState([])
     const [AdminFeedbackFetch, setAdminFeedbackFetch] = useState([])
+    const [AdminContactUsFetch, setAdminContactUsFetch] = useState([])
 
     // get all orders of all users for admin only
     const getallordersofusers = async () => {
@@ -198,8 +214,23 @@ const DineOptimaState = (props) => {
 
     }
 
+    // get all contactus of all users for admin only
+    const getallcontactusofusers = async () => {
+        // Api call
+        const response = await fetch(`${host}/api/adminAccess/fetchallcontactus`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem("Admintoken")
+            }
+        });
+        const json = await response.json();
+        setAdminContactUsFetch(json)
+
+    }
+
     return (
-        <DineOptimaContext.Provider value={{ dishCount, setDishCount, uniqueDishes, setuniqueDishes, dishesData, formData, setFormData, availableTimes, setAvailableTimes, addorder, getallordersofusers, AdminDineinOrdersFetch, addfeedback, getallfeedbacksofusers, AdminFeedbackFetch, getmyorders, myOrders, deleteorder, editorder }}>
+        <DineOptimaContext.Provider value={{ dishCount, setDishCount, uniqueDishes, setuniqueDishes, dishesData, formData, setFormData, availableTimes, setAvailableTimes, addorder, getallordersofusers, AdminDineinOrdersFetch, addfeedback, getallfeedbacksofusers, AdminFeedbackFetch, getmyorders, myOrders, deleteorder, editorder,getallcontactusofusers,AdminContactUsFetch,addcontactus }}>
             {props.children}
         </DineOptimaContext.Provider>
     )

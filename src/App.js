@@ -29,6 +29,7 @@ import AdminFeedback from './components/AdminFeedback';
 import AdminHome from './components/AdminHome';
 import DishIngredients from './components/DishIngredients';
 import UserOrders from './components/UserOrders';
+import AdminContactus from './components/AdminContactUs';
 
 function App() {
 
@@ -103,6 +104,7 @@ function App() {
             <Route path="/adminsignin" element={<AdminSignin showAlert={showAlert} />} />
             <Route path="/adminfeedback" element={<AdminFeedback />} />
             <Route path="/inventory" element={<DishIngredients />} />
+            <Route path="/adminContactus" element={<AdminContactus />} />
 
           </Routes>
           <Footer />

@@ -34,6 +34,7 @@ function AdminNavbar(props) {
                     <Link to="/orders" className={`font-bold  hover:text-white ${location.pathname === "/orders" ? "text-white" : "text-gray-400"}`}>Ordres</Link>
                     <Link to="/inventory" className={`font-bold  hover:text-white ${location.pathname === "/inventory" ? "text-white" : "text-gray-400"}`}>Inventory</Link>
                     <Link to="/adminfeedback" className={`font-bold  hover:text-white ${location.pathname === "/adminfeedback" ? "text-white" : "text-gray-400"}`}>Feedbacks</Link>
+                    <Link to="/adminContactus" className={`font-bold  hover:text-white ${location.pathname === "/adminContactus" ? "text-white" : "text-gray-400"}`}>ContactUs</Link>
 
                     {!localStorage.getItem("Admintoken") ? <div>
                         <Link to="/adminlogin" className="font-bold text-blue-500 underline hover:text-white mr-4">Login</Link>
