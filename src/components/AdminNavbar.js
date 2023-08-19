@@ -15,7 +15,7 @@ function AdminNavbar(props) {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        localStorage.removeItem('Admintoken');
         navigate("/adminlogin")
     }
 

@@ -23,7 +23,7 @@ function AdminSignin(props) {
         if (json.success) {
             //save the auth token and redirect
             localStorage.setItem("Admintoken", json.authToken)
-            navigate("/")
+            navigate("/adminHome")
             props.showAlert("Account Created Successfully", "green")
         } else {
             props.showAlert("User already Exisit", "red")
